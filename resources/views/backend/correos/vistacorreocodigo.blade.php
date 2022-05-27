@@ -80,10 +80,10 @@
                     <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
                         <div href="#" target="_blank">
                             <div bgcolor="#ffffff" align="center" style="color: #FFFFFF; font-family: Arial, sans-serif; font-size: 30px;" >
-                                <p style="margin: 0;">Cafe, Helados Y Pupuseria El Tuncazo</p>
+                                <p style="margin: 0;">Panes Ingeniero Metapán</p>
                             </div>
                             <div style="margin-top: 15px">
-                                <img src="http://tuncazo.xyz/storage/imagenes/logo.png" height="125px" width="125px">
+                                <img src="http://panesingeniero.xyz/storage/imagenes/logo.png" height="125px" width="125px">
                             </div>
                         </div>
                     </td>
@@ -130,7 +130,7 @@
                 <tr>
                     <td bgcolor="#FFECD1" align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;" >
                         <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">Necesita ayuda?</h2>
-                        <p style="margin: 0;"><a href="https://www.facebook.com/eltuncazo/" target="_blank" style="color: #1976d2;">Contactanos</a></p>
+                        <p style="margin: 0;"><a href="#" target="_blank" style="color: #1976d2;">Contactanos</a></p>
                     </td>
                 </tr>
             </table>
