@@ -92,7 +92,7 @@ class ClientesController extends Controller
 
         $usuario = Clientes::where('id', $id)->pluck('usuario')->first();
 
-        return view('backend.admin.cliente.direcciones.vistadireccion', compact('id', 'usuario'));
+        return view('backend.admin.cliente.direcciones.vistaDireccion', compact('id', 'usuario'));
     }
 
     public function tablaIndexListaDirecciones($id){
@@ -106,7 +106,7 @@ class ClientesController extends Controller
             $ll->zona = $infoZona->nombre;
         }
 
-        return view('backend.admin.cliente.direcciones.tabladireccion', compact('id', 'lista'));
+        return view('backend.admin.cliente.direcciones.tablaDireccion', compact('id', 'lista'));
     }
 
 
