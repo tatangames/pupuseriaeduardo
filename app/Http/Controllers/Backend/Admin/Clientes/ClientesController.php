@@ -16,7 +16,7 @@ class ClientesController extends Controller
 
         $dataFecha = Carbon::now('America/El_Salvador');
         $fecha = date("d-m-Y", strtotime($dataFecha));
-        return view('backend.admin.cliente.hoy.vistahoy', compact('fecha'));
+        return view('backend.admin.cliente.hoy.vistaHoy', compact('fecha'));
     }
 
     public function tablaRegistradosHoy(){
@@ -28,11 +28,11 @@ class ClientesController extends Controller
             $c->fecha = date("h:i A", strtotime($c->fecha));
         }
 
-        return view('backend.admin.cliente.hoy.tablahoy', compact('cliente'));
+        return view('backend.admin.cliente.hoy.tablaHoy', compact('cliente'));
     }
 
     public function indexListaClientes(){
-        return view('backend.admin.cliente.listado.vistalistado');
+        return view('backend.admin.cliente.listado.vistaListado');
     }
 
     public function tablaindexListaClientes(){
@@ -43,7 +43,7 @@ class ClientesController extends Controller
             $c->fecha = date("d-m-Y h:i A", strtotime($c->fecha));
         }
 
-        return view('backend.admin.cliente.listado.tablalistado', compact('lista'));
+        return view('backend.admin.cliente.listado.tablaListado', compact('lista'));
     }
 
     public function informacionCliente(Request $request){
