@@ -23,12 +23,6 @@ class PerfilController extends Controller
 
     public function editarUsuario(Request $request){
 
-
-        SendNotiPropietarioJobs::dispatch('titulo', 'mensaje', '46faf7bc-5941-4c03-afbd-77c314f6391c');
-
-
-        return ['success' => 1];
-
         $regla = array(
             'password' => 'required',
         );
