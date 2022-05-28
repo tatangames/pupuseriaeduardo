@@ -490,7 +490,6 @@ class ApiCategoriaAfiliadoController extends Controller
     }
 
 
-
     public function listadoPreparandoOrdenes(Request $request){
 
         $rules = array(
@@ -577,7 +576,22 @@ class ApiCategoriaAfiliadoController extends Controller
                     'estado_3' => 1, 'fecha_3' => $fechahoy]);
             }
 
-            // notificacion a motorista si agarro la orden
+            // verificar como sera el envio para una notificacion
+            if($o->tipoentrega == 2){
+                // recoger en local
+                // envio notificacion al cliente
+                $infoCliente = Clientes::where('id', $o->clientes_id)->first();
+
+                if($infoCliente->token_fcm != null){
+
+                    $titulo = "Orden #" . $request->ordenid;
+                    $mensaje = "Puede pasar al Local a traer su Orden";
+
+                    SendNotiClienteJobs::dispatch($titulo, $mensaje, $infoCliente->token_fcm);
+                }
+            }
+
+            // notificacion a motorista SOLO si agarro la orden
             if($mo = MotoristasOrdenes::where('ordenes_id', $request->ordenid)->first()){
 
                 $info = Motoristas::where('id', $mo->motoristas_id)->first();

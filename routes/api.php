@@ -105,6 +105,7 @@ Route::post('afiliado/listado/preparando/ordenes', [ApiCategoriaAfiliadoControll
 Route::post('afiliado/informacion/orden/preparando', [ApiCategoriaAfiliadoController::class, 'informacionOrdenEnPreparacion']);
 
 // notificacion: orden preparada por propietario
+// notificacion al cliente si el envio fuera para recoger en local, notificar orden lista para entrega
 Route::post('afiliado/finalizar/orden', [ApiCategoriaAfiliadoController::class, 'finalizarOrden']);
 Route::post('afiliado/ordenes/completadas/hoy', [ApiCategoriaAfiliadoController::class, 'listadoOrdenesCompletadasHoy']);
 
