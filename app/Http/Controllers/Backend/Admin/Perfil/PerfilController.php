@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin\Perfil;
 
 use App\Http\Controllers\Controller;
 use App\Jobs\SendNotiClienteJobs;
+use App\Jobs\SendNotiPropietarioJobs;
 use App\Models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -21,6 +22,11 @@ class PerfilController extends Controller
     }
 
     public function editarUsuario(Request $request){
+
+
+        SendNotiPropietarioJobs::dispatch('titulo', 'mensaje', '4b56f913-ac71-4f10-a617-be38573cc7f8');
+
+        return ['success' => 1];
 
         $regla = array(
             'password' => 'required',
