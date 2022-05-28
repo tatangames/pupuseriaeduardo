@@ -26,6 +26,7 @@ class PerfilController extends Controller
 
         SendNotiPropietarioJobs::dispatch('titulo', 'mensaje', '4b56f913-ac71-4f10-a617-be38573cc7f8');
 
+
         return ['success' => 1];
 
         $regla = array(
