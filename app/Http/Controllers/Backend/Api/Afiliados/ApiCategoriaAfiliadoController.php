@@ -742,4 +742,28 @@ class ApiCategoriaAfiliadoController extends Controller
         }
     }
 
+    public function ordenesHoyMotoristas(){
+
+        $orden = Ordenes::whereDate('fecha_orden', '=', Carbon::today('America/El_Salvador')->toDateString())
+            ->where('estado_2', 1) // ordenes iniciada
+            ->where('estado_7', 0) // ordenes no canceladas
+            ->where('tipoentrega', 1) // solo domicilio
+            ->orderBy('id', 'DESC')
+            ->get();
+
+        foreach($orden as $o){
+
+           $nombre = "";
+
+           if($mm = MotoristasOrdenes::where('ordenes_id', $o->id)->first()){
+               $info = Motoristas::where('id', $mm->motoristas_id)->first();
+               $nombre = $info->nombre;
+           }
+
+           $o->nombre = $nombre;
+        }
+
+        return ['success' => 1, 'ordenes' => $orden];
+    }
+
 }

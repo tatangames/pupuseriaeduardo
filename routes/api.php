@@ -111,6 +111,13 @@ Route::post('afiliado/ordenes/completadas/hoy', [ApiCategoriaAfiliadoController:
 
 Route::post('afiliado/historial/ordenes', [ApiCategoriaAfiliadoController::class, 'historialOrdenesCompletas']);
 
+// ver ordenes hoy, para ver si tienen motorista asignado
+Route::get('afiliado/ordenes/hoy/motoristas', [ApiCategoriaAfiliadoController::class, 'ordenesHoyMotoristas']);
+
+
+
+
+
 
 // ****--------------  MOTORISTAS  ---------------- **** //
 Route::post('motorista/login', [ApiMotoristasController::class, 'loginMotorista']);
