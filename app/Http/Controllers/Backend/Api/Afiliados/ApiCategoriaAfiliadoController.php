@@ -701,7 +701,7 @@ class ApiCategoriaAfiliadoController extends Controller
                 if($o->estado_4 == 1){
                     $estado = "Orden En Camino";
                 }
-                if($o->estado_ == 5){
+                if($o->estado_5 == 1){
                     $estado = "Orden Entregada";
                 }
 
