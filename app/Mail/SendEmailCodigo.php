@@ -31,10 +31,10 @@ class SendEmailCodigo extends Mailable
     public function build()
     {
         // correo de dominio para acceder a sendgrid y enviar el correo
-        $address = 'admin@administrador.xyz';
+        $address = 'info@panesingeniero.xyz';
 
         $subject = 'Recuperación de contraseña';
-        $name = 'Panes_Metapan';
+        $name = 'Panes_Inge_Metapan';
 
         return $this->from($address, $name)
             ->subject($subject)
