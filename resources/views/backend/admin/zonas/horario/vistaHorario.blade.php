@@ -15,7 +15,7 @@
     }
 
     #card-header-color {
-        background-color: #673AB7 !important;
+        background-color: #f54e00 !important;
     }
 </style>
 
@@ -69,12 +69,12 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Horario cierra Lunes</label>
+                                    <label>Horario cierra</label>
                                     <input type="time" class="form-control" id="hora1">
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Horario cierra Lunes</label>
+                                    <label>Horario cierra</label>
                                     <input type="time" class="form-control" id="hora2">
                                 </div>
 

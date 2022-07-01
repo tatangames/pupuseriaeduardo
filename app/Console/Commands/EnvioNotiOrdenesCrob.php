@@ -46,10 +46,6 @@ class EnvioNotiOrdenesCrob extends Command
     public function handle()
     {
 
-        $infoAdmin = InformacionAdmin::where('id', 1)->first();
-
-        if($infoAdmin->activo_noti == 1){
-
             $ordenhoy = Ordenes::where('estado_2', 0) // aun no han contestado
             ->where('estado_7', 0) // no ha sido cancelada
             ->whereDate('fecha_orden', '=', Carbon::today('America/El_Salvador')->toDateString())
@@ -127,7 +123,5 @@ class EnvioNotiOrdenesCrob extends Command
                     }
                 }
             }
-
-        }
     }
 }

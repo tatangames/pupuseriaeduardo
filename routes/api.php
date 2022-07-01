@@ -34,7 +34,7 @@ Route::post('cliente/perfil/cambiar-password', [ApiPerfilController::class, 'cam
 // --- BLOQUE DE SERVICIOS ---
 Route::post('cliente/lista/servicios-bloque', [ApiZonasServiciosController::class, 'listadoBloque']);
 
-Route::post('cliente/servicios/listado/menu', [ApiServiciosController::class, 'listadoMenuVertical']);
+Route::get('cliente/servicios/listado/menu', [ApiServiciosController::class, 'listadoMenuVertical']);
 Route::post('cliente/informacion/producto', [ApiProductosController::class, 'infoProductoIndividual']);
 Route::post('cliente/carrito/producto/agregar', [ApiProductosController::class, 'agregarProductoCarritoTemporal']);
 
@@ -66,8 +66,10 @@ Route::post('cliente/eventos-imagen/listado', [ApiServiciosController::class, 'l
 
 Route::post('cliente/proceso/calificar/entrega',  [ApiOrdenesController::class, 'calificarEntrega']);
 
-// --- RECORDS ---
-Route::get('cliente/records/listado', [ApiServiciosController::class, 'listadoRecords']);
+// horarios
+Route::get('cliente/horarios', [ApiPerfilController::class, 'listaHorarios']);
+
+
 
 // ****--------------  AFILIADOS  ---------------- **** //
 
@@ -114,6 +116,14 @@ Route::post('afiliado/historial/ordenes', [ApiCategoriaAfiliadoController::class
 // ver ordenes hoy, para ver si tienen motorista asignado
 Route::get('afiliado/ordenes/hoy/motoristas', [ApiCategoriaAfiliadoController::class, 'ordenesHoyMotoristas']);
 
+// actualizar cantidad de producto por propietario
+Route::post('afiliado/producto/cambiar-cantidad', [ApiCategoriaAfiliadoController::class, 'actualizarCantidadProducto']);
+
+// informacion horario categoria
+Route::post('afiliado/categoria/horario-info', [ApiCategoriaAfiliadoController::class, 'infoCategoriaHorario']);
+
+// guardar horario categoria
+Route::post('afiliado/categoria/horario-guardar', [ApiCategoriaAfiliadoController::class, 'guardarCategoriaHorario']);
 
 
 

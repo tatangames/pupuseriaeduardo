@@ -8,29 +8,32 @@
                         <thead>
                         <tr>
                             <th>Posición</th>
-                            <th>Nombre</th>
-                            <th>Fecha</th>
                             <th>Descripción</th>
+                            <th>Producto</th>
                             <th>Imagen</th>
                             <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody id="tablecontents">
-                        @foreach($records as $dato)
+                        @foreach($slider as $dato)
                             <tr class="row1" data-id="{{ $dato->id }}">
 
                                 <td>{{ $dato->posicion }}</td>
-                                <td>{{ $dato->nombre }}</td>
-                                <td>{{ $dato->fecha }}</td>
                                 <td>{{ $dato->descripcion }}</td>
+                                <td>{{ $dato->producto }}</td>
                                 <td>
                                     <center><img alt="Imagenes" src="{{ url('storage/imagenes/'.$dato->imagen) }}" width="150px" height="150px" /></center>
                                 </td>
 
                                 <td>
-                                    <button type="button" class="btn btn-danger btn-xs" onclick="modalBorrar({{ $dato->id }})">
-                                        <i class="fas fa-trash" title="Borrar"></i>&nbsp; Borrar
+                                    <button type="button" class="btn btn-primary btn-xs" onclick="informacion({{ $dato->id }})">
+                                        <i class="fas fa-edit" title="Editar"></i>&nbsp; Editar
                                     </button>
+
+                                    <button type="button" class="btn btn-danger btn-xs" onclick="informacionBorrar({{ $dato->id }})">
+                                        <i class="fas fa-trash-alt" title="Borrar"></i>&nbsp; Borrar
+                                    </button>
+
                                 </td>
 
                             </tr>
@@ -67,7 +70,7 @@
 
             openLoading();
 
-            axios.post('/admin/records/ordenar',  {
+            axios.post('/admin/sliders/ordenar',  {
                 'order': order
             })
                 .then((response) => {

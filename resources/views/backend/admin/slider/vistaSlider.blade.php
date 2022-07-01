@@ -5,6 +5,8 @@
     <link href="{{ asset('css/dataTables.bootstrap4.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/toastr.min.css') }}" type="text/css" rel="stylesheet" />
     <link href="{{ asset('css/estiloToggle.css') }}" type="text/css" rel="stylesheet" />
+    <link href="{{ asset('css/select2.min.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('css/select2-bootstrap-5-theme.min.css') }}" type="text/css" rel="stylesheet">
 
 @stop
 
@@ -15,18 +17,18 @@
     }
 
     #card-header-color {
-        background-color: #673AB7 !important;
+        background-color: #ff0000 !important;
     }
 </style>
 
 <section class="content-header">
     <div class="container-fluid">
         <div class="row">
-            <h1>Records</h1>
+            <h1>Slider</h1>
 
             <button type="button" style="margin-left: 30px" onclick="modalNuevo()" class="btn btn-info btn-sm">
                 <i class="fas fa-pencil-alt"></i>
-                Nuevo Record
+                Nuevo Slider
             </button>
         </div>
 
@@ -37,7 +39,7 @@
     <div class="container-fluid">
         <div class="card">
             <div class="card-header" id="card-header-color">
-                <h3 class="card-title" style="color: white">Lista de Records</h3>
+                <h3 class="card-title" style="color: white">Lista de Sliders</h3>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -56,7 +58,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Nuevo Record</h4>
+                <h4 class="modal-title">Nuevo Slider</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -68,28 +70,24 @@
                             <div class="col-md-12">
 
                                 <div class="form-group">
-                                    <label>Fecha</label>
-                                    <input type="date" class="form-control" id="fecha-nuevo" placeholder="Fecha">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Nombre</label>
-                                    <input type="text" maxlength="100" class="form-control" id="nombre-nuevo" placeholder="Nombre">
+                                    <label>Producto:</label>
+                                    <select class="form-control" id="select-producto-nuevo">
+                                        <option value=""> Seleccionar opción</option>
+                                        @foreach($productos as $dd)
+                                            <option value="{{ $dd->id }}"> {{ $dd->nombre }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Descripción</label>
-                                    <input type="text" maxlength="500" class="form-control" id="descripcion-nuevo" placeholder="Descripción">
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Cantidad</label>
-                                    <input type="number" class="form-control" id="cantidad-nuevo" placeholder="Cantidad">
+                                    <input type="text" maxlength="300" autocomplete="off" class="form-control" id="nombre-nuevo" placeholder="Descripción">
                                 </div>
 
                                 <div class="form-group">
                                     <div>
                                         <label>Imagen</label>
+                                        <p>Tamaño recomendado de: 2048 x 1000 px</p>
                                     </div>
                                     <br>
                                     <div class="col-md-10">
@@ -116,7 +114,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Editar Record</h4>
+                <h4 class="modal-title">Editar Slider</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -127,29 +125,21 @@
                         <div class="col-md-12">
 
                             <div class="form-group">
-                                <label>Fecha</label>
-                                <input type="date" class="form-control" id="fecha-editar" placeholder="Fecha">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Nombre</label>
-                                <input type="hidden" id="id-editar">
-                                <input type="text" maxlength="100" class="form-control" id="nombre-editar" placeholder="Nombre">
+                                <label>Producto:</label>
+                                <select class="form-control" id="select-producto-editar">
+                                </select>
                             </div>
 
                             <div class="form-group">
                                 <label>Descripción</label>
-                                <input type="text" maxlength="500" class="form-control" id="descripcion-editar" placeholder="Descripción">
-                            </div>
-
-                            <div class="form-group">
-                                <label>Cantidad</label>
-                                <input type="number" class="form-control" id="cantidad-editar" placeholder="Cantidad">
+                                <input type="hidden" id="id-editar">
+                                <input type="text" maxlength="300" autocomplete="off" class="form-control" id="nombre-editar" placeholder="Descripción">
                             </div>
 
                             <div class="form-group">
                                 <div>
                                     <label>Imagen</label>
+                                    <p>Tamaño recomendado de: 2048 x 1000 px</p>
                                 </div>
                                 <br>
                                 <div class="col-md-10">
@@ -179,72 +169,61 @@
     <script src="{{ asset('js/axios.min.js') }}" type="text/javascript"></script>
     <script src="{{ asset('js/sweetalert2.all.min.js') }}"></script>
     <script src="{{ asset('js/alertaPersonalizada.js') }}"></script>
+    <script src="{{ asset('js/select2.min.js') }}" type="text/javascript"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
-            var ruta = "{{ URL::to('/admin/records/tablas') }}";
+            var ruta = "{{ URL::to('/admin/sliders/tablas') }}";
             $('#tablaDatatable').load(ruta);
+
+
+            $('#select-producto-nuevo').select2({
+                theme: "bootstrap-5",
+                "language": {
+                    "noResults": function(){
+                        return "Busqueda no encontrada";
+                    }
+                },
+            });
+
+
+            $('#select-producto-editar').select2({
+                theme: "bootstrap-5",
+                "language": {
+                    "noResults": function(){
+                        return "Busqueda no encontrada";
+                    }
+                },
+            });
+
+
         });
     </script>
 
     <script>
 
         function recargar(){
-            var ruta = "{{ url('/admin/records/tablas') }}";
+            var ruta = "{{ url('/admin/sliders/tablas') }}";
             $('#tablaDatatable').load(ruta);
         }
 
         // abrir modal
         function modalNuevo(){
             document.getElementById("formulario-nuevo").reset();
+            $("#select-producto-nuevo").val('').trigger('change');
+
             $('#modalAgregar').modal('show');
         }
 
         //nuevo servicio
         function nuevo(){
 
-            var fecha = document.getElementById('fecha-nuevo').value;
             var nombre = document.getElementById('nombre-nuevo').value;
-            var descripcion = document.getElementById('descripcion-nuevo').value;
-            var cantidad = document.getElementById('cantidad-nuevo').value;
             var imagen = document.getElementById('imagen-nuevo');
+            var producto = document.getElementById('select-producto-nuevo').value;
 
-            if(fecha === '') {
-                toastr.error('Fecha es requerido');
-                return;
-            }
-
-            if(nombre === '') {
-                toastr.error('Nombre es requerido');
-                return;
-            }
-
-            if(nombre.length > 100){
-                toastr.error('Nombre máximo 100 caracteres');
-                return;
-            }
-
-            if(descripcion.length > 0){
-                if(descripcion.length > 500){
-                    toastr.error('Descripción máximo 500 caracteres');
-                    return;
-                }
-            }
-
-            var reglaNumeroEntero = /^[0-9]\d*$/;
-
-            if(!cantidad.match(reglaNumeroEntero)) {
-                toastr.error('Cantidad es Requerido');
-                return;
-            }
-
-            if(cantidad <= 0){
-                toastr.error('Cantidad no debe ser negativo o Cero');
-                return;
-            }
-
-            if(cantidad.length > 10){
-                toastr.error('Cantidad máximo 10 caracteres');
+            if(nombre.length > 300){
+                toastr.error('Descripción máximo 300 caracteres');
                 return;
             }
 
@@ -261,13 +240,11 @@
             openLoading();
 
             var formData = new FormData();
-            formData.append('fecha', fecha);
             formData.append('nombre', nombre);
-            formData.append('descripcion', descripcion);
-            formData.append('cantidad', cantidad);
             formData.append('imagen', imagen.files[0]);
+            formData.append('producto', producto);
 
-            axios.post('/admin/records/nuevo', formData, {
+            axios.post('/admin/sliders/nuevo', formData, {
             })
                 .then((response) => {
                     closeLoading();
@@ -286,14 +263,97 @@
                 });
         }
 
+        function informacion(id){
+
+            document.getElementById("formulario-editar").reset();
+            $("#select-producto-editar").val('').trigger('change');
+
+            openLoading();
+
+            axios.post('/admin/sliders/informacion',{
+                'id': id
+            })
+                .then((response) => {
+                    closeLoading();
+                    if(response.data.success === 1){
+
+                        document.getElementById("select-producto-editar").options.length = 0;
+
+                        $('#modalEditar').modal('show');
+                        $('#id-editar').val(id);
 
 
+                        $('#nombre-editar').val(response.data.slider.descripcion);
 
-        function modalBorrar(id){
+                        $('#select-producto-editar').append('<option value="">Seleccionar opción</option>');
+                        $.each(response.data.producto, function( key, val ){
+                            if(response.data.idproducto == val.id){
+                                $('#select-producto-editar').append('<option value="' +val.id +'" selected="selected">'+ val.nombre +'</option>');
+                            }else{
+                                $('#select-producto-editar').append('<option value="' +val.id +'">'+ val.nombre +'</option>');
+                            }
+                        });
+
+                    }else{
+                        toastr.error('Error al buscar');
+                    }
+                })
+                .catch((error) => {
+                    toastr.error('Error al buscar');
+                    closeLoading();
+                });
+        }
+
+        function editar(){
+
+            var id = document.getElementById('id-editar').value;
+            var nombre = document.getElementById('nombre-editar').value;
+            var imagen = document.getElementById('imagen-editar');
+            var producto = document.getElementById('select-producto-editar').value;
+
+            if(nombre.length > 300){
+                toastr.error('Descripción máximo 300 caracteres');
+                return;
+            }
+
+            if(imagen.files && imagen.files[0]){ // si trae imagen
+                if (!imagen.files[0].type.match('image/jpeg|image/jpeg|image/png')){
+                    toastr.error('Formato de imagen permitido: .png .jpg .jpeg');
+                    return;
+                }
+            }
+
+            openLoading();
+            var formData = new FormData();
+            formData.append('id', id);
+            formData.append('nombre', nombre);
+            formData.append('imagen', imagen.files[0]);
+            formData.append('producto', producto);
+
+            axios.post('/admin/sliders/editar', formData, {
+            })
+                .then((response) => {
+                    closeLoading();
+                    if (response.data.success === 1) {
+                        $('#modalEditar').modal('hide');
+                        toastr.success('Actualizado correctamente');
+                        recargar();
+                    }
+                    else {
+                        toastr.error('Error al Editar');
+                    }
+                })
+                .catch((error) => {
+                    toastr.error('Error al Editar');
+                    closeLoading();
+                });
+        }
+
+        function informacionBorrar(id){
             Swal.fire({
-                title: 'Borrar Record?',
+                title: 'Borrar Slider?',
                 text: "",
-                icon: 'success',
+                icon: 'info',
                 showCancelButton: true,
                 confirmButtonColor: '#28a745',
                 cancelButtonColor: '#d33',
@@ -301,22 +361,23 @@
                 confirmButtonText: 'Si'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    borrarEvento(id);
+                    borrarSlider(id);
                 }
             })
         }
 
-        function borrarEvento(id){
+        function borrarSlider(id){
             openLoading();
             var formData = new FormData();
             formData.append('id', id);
 
-            axios.post('/admin/records/borrar', formData, {
+            axios.post('/admin/sliders/borrar', formData, {
             })
                 .then((response) => {
                     closeLoading();
                     if (response.data.success === 1) {
-                        toastr.success('Eliminado correctamente');
+                        $('#modalEditar').modal('hide');
+                        toastr.success('Borrado correctamente');
                         recargar();
                     }
                     else {

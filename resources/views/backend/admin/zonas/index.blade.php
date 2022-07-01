@@ -15,7 +15,7 @@
     }
 
     #card-header-color {
-        background-color: #673AB7 !important;
+        background-color: #f54e00 !important;
     }
 </style>
 
@@ -92,7 +92,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Precio Envío</label>
+                                    <label>Mínimo de Compra</label>
                                     <input type="number" class="form-control" id="precio-nuevo" value="0.00">
                                 </div>
 
@@ -150,7 +150,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Precio Envío</label>
+                                    <label>Mínimo de Compra</label>
                                     <input type="number" class="form-control" id="precio-editar">
                                 </div>
 
@@ -377,7 +377,7 @@
 
                         $('#latitud-editar').val(response.data.zona.latitud);
                         $('#longitud-editar').val(response.data.zona.longitud);
-                        $('#precio-editar').val(response.data.zona.precio_envio);
+                        $('#precio-editar').val(response.data.zona.minimo_compra);
 
                         if(response.data.zona.saturacion === 0){
                             $("#toggle-problema").prop("checked", false);

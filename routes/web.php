@@ -105,8 +105,8 @@ Route::post('/admin/bloques/editar', [CategoriasController::class,'editarBloque'
 Route::post('/admin/bloques/ordenar', [CategoriasController::class,'ordenarBloque']);
 
 // --- CATEGORIAS ---
-Route::get('/admin/categorias/{id}', [CategoriasController::class,'indexCategorias']);
-Route::get('/admin/categorias/tablas/{id}', [CategoriasController::class,'tablaCategorias']);
+Route::get('/admin/categorias', [CategoriasController::class,'indexCategorias']);
+Route::get('/admin/categorias/tablas', [CategoriasController::class,'tablaCategorias']);
 Route::post('/admin/categorias/nuevo', [CategoriasController::class,'nuevaCategorias']);
 Route::post('/admin/categorias/informacion', [CategoriasController::class,'informacionCategorias']);
 Route::post('/admin/categorias/editar', [CategoriasController::class,'editarCategorias']);
@@ -164,14 +164,14 @@ Route::post('/admin/configuracion/editar', [HorarioController::class,'editarConf
 Route::get('/admin/intentos-correo/lista', [HorarioController::class, 'indexIntentosCorreo'])->name('index.intentos.correo');
 Route::get('/admin/intentos-correo/tabla/lista', [HorarioController::class, 'tablaIntentosCorreo']);
 
-// --- RECORDS ----
-Route::get('/admin/records', [EventosController::class,'indexRecords'])->name('index.records');
-Route::get('/admin/records/tablas', [EventosController::class,'tablaRecords']);
-Route::post('/admin/records/nuevo', [EventosController::class,'nuevoRecords']);
-Route::post('/admin/records/ordenar', [EventosController::class,'ordenarRecords']);
-Route::post('/admin/records/borrar', [EventosController::class,'borrarRecords']);
-
-
+// --- SLIDERS ---
+Route::get('/admin/sliders', [EventosController::class,'indexSliders'])->name('index.sliders');
+Route::get('/admin/sliders/tablas', [EventosController::class,'tablaSliders']);
+Route::post('/admin/sliders/nuevo', [EventosController::class,'nuevoSliders']);
+Route::post('/admin/sliders/ordenar', [EventosController::class,'ordenarSliders']);
+Route::post('/admin/sliders/borrar', [EventosController::class,'borrarSliders']);
+Route::post('/admin/sliders/informacion', [EventosController::class,'informacionSlider']);
+Route::post('/admin/sliders/editar', [EventosController::class,'editarSlider']);
 
 
 

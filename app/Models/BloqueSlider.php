@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class BloquesRecords extends Model
+class BloqueSlider extends Model
 {
     use HasFactory;
-    protected $table = 'bloques_records';
+    protected $table = 'bloque_slider';
     public $timestamps = false;
 
     protected $fillable = [

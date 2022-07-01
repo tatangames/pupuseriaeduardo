@@ -42,9 +42,7 @@ class ApiOrdenesController extends Controller
 
                 $o->direccion = $infoDireccion->direccion;
 
-                $sumado = $o->precio_consumido + $o->precio_envio;
-                $sumado = number_format((float)$sumado, 2, '.', ',');
-                $o->total = $sumado;
+                $o->total = number_format((float)$o->precio_consumido, 2, '.', ',');
 
                 if($o->tipoentrega == 1){
                     $entrega = "A Domicilio";
@@ -157,7 +155,7 @@ class ApiOrdenesController extends Controller
                     $mensaje = "Fue Cancelada por el Cliente";
 
                     if($pilaPropietarios != null) {
-                        SendNotiPropietarioJobs::dispatch($titulo, $mensaje, $pilaPropietarios);
+                        //SendNotiPropietarioJobs::dispatch($titulo, $mensaje, $pilaPropietarios);
                     }
 
                     DB::commit();
@@ -303,9 +301,7 @@ class ApiOrdenesController extends Controller
                     }
                 }
 
-                $total = $o->precio_envio + $o->precio_consumido;
-                $o->precio_envio = number_format((float)$o->precio_envio, 2, '.', ',');
-                $o->total = number_format((float)$total, 2, '.', ',');
+                $o->total = number_format((float)$o->precio_consumido, 2, '.', ',');
 
                 $infoCliente = OrdenesDirecciones::where('ordenes_id', $o->id)->first();
                 $o->direccion = $infoCliente->direccion;

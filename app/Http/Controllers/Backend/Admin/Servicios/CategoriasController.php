@@ -7,6 +7,7 @@ use App\Models\BloqueServicios;
 use App\Models\Categorias;
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -164,14 +165,14 @@ class CategoriasController extends Controller
 
     // *** CATEGORIAS *** //
 
-    public function indexCategorias($id){
+    public function indexCategorias(){
 
-        return view('backend.admin.categorias.vistaCategorias', compact('id'));
+        return view('backend.admin.categorias.vistaCategorias');
     }
 
     // tabla
-    public function tablaCategorias($id){
-        $categorias = Categorias::where('bloque_servicios_id', $id)->orderBy('posicion')->get();
+    public function tablaCategorias(){
+        $categorias = Categorias::orderBy('posicion')->get();
 
         return view('backend.admin.categorias.tablaCategorias', compact('categorias'));
     }
@@ -193,9 +194,11 @@ class CategoriasController extends Controller
         }
 
         $ca = new Categorias();
-        $ca->bloque_servicios_id = $request->id;
         $ca->nombre = $request->nombre;
         $ca->activo = 1;
+        $ca->usahorario = $request->toggle;
+        $ca->hora1 = $request->hora1;
+        $ca->hora2 = $request->hora2;
         $ca->visible = 1;
         $ca->posicion = $suma;
 
@@ -232,6 +235,8 @@ class CategoriasController extends Controller
             'nombre' => 'required'
         );
 
+        Log::info($request->all());
+
         $validator = Validator::make($request->all(), $rules);
 
         if ($validator->fails()){return ['success' => 0]; }
@@ -241,7 +246,10 @@ class CategoriasController extends Controller
             Categorias::where('id', $request->id)->update([
                 'nombre' => $request->nombre,
                 'activo' => $request->cbactivo,
-                'visible' => $request->cbvisible
+                'visible' => $request->cbvisible,
+                'usahorario' => $request->toggle,
+                'hora1' => $request->hora1,
+                'hora2' => $request->hora2,
             ]);
             return ['success' => 1];
         }else{

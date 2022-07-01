@@ -20,9 +20,8 @@ class CreateOrdenesTable extends Migration
             $table->string('nota', 600)->nullable();
             $table->decimal('precio_consumido', 10,2); // total de la orden
 
-            $table->integer('tipoentrega');
+            $table->integer('tipoentrega'); // 1 domicilio, 2 local
 
-            $table->decimal('precio_envio', 10,2);
             $table->dateTime('fecha_orden');
             $table->string('cambio', 20)->nullable();
 

@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Backend\Admin\Eventos;
 
 use App\Http\Controllers\Controller;
 use App\Models\BloquesEventos;
+use App\Models\BloqueSlider;
 use App\Models\BloquesRecords;
 use App\Models\EventoImagenes;
+use App\Models\Producto;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -299,75 +301,72 @@ class EventosController extends Controller
 
 
 
-    //************* RECORDS ******************//
+    //************* BLOQUE SLIDER ******************//
 
+    public function indexSliders(){
 
-    public function indexRecords(){
-        return view('backend.admin.records.vistaRecords');
+        $productos = Producto::where('activo', 1)->orderBy('nombre')->get();
+
+        return view('backend.admin.slider.vistaSlider', compact('productos'));
     }
 
-    // tabla
-    public function tablaRecords(){
-        $records = BloquesRecords::orderBy('posicion')->get();
+    public function tablaSliders(){
+        $slider = BloqueSlider::orderBy('posicion')->get();
 
-        foreach ($records as $ee){
-            $ee->fecha = date("d-m-Y", strtotime($ee->fecha));
+        foreach ($slider as $ss){
+
+            if($info = Producto::where('id', $ss->id_producto)->first()){
+                $ss->producto = $info->nombre;
+            }
         }
 
-        return view('backend.admin.records.tablaRecords', compact('records'));
+        return view('backend.admin.slider.tablaSlider', compact('slider'));
     }
 
-    public function nuevoRecords(Request $request){
+    public function nuevoSliders(Request $request){
 
-        $regla = array(
-            'nombre' => 'required'
-        );
+        if($request->file('imagen')){
 
-        $validar = Validator::make($request->all(), $regla);
+            $cadena = Str::random(15);
+            $tiempo = microtime();
+            $union = $cadena.$tiempo;
+            $nombre = str_replace(' ', '_', $union);
 
-        if ($validar->fails()){return ['success' => 0]; }
+            $extension = '.'.$request->imagen->getClientOriginalExtension();
+            $nombreFoto = $nombre.strtolower($extension);
+            $avatar = $request->file('imagen');
+            $upload = Storage::disk('imagenes')->put($nombreFoto, \File::get($avatar));
 
-        $cadena = Str::random(15);
-        $tiempo = microtime();
-        $union = $cadena.$tiempo;
-        $nombre = str_replace(' ', '_', $union);
+            if($upload){
 
-        $extension = '.'.$request->imagen->getClientOriginalExtension();
-        $nombreFoto = $nombre.strtolower($extension);
-        $avatar = $request->file('imagen');
-        $upload = Storage::disk('imagenes')->put($nombreFoto, \File::get($avatar));
+                if($info = BloqueSlider::orderBy('posicion', 'DESC')->first()){
+                    $suma = $info->posicion + 1;
+                }else{
+                    $suma = 1;
+                }
 
-        if($upload){
+                $ca = new BloqueSlider();
+                $ca->descripcion = $request->nombre;
+                $ca->imagen = $nombreFoto;
+                $ca->id_producto = $request->producto;
+                $ca->posicion = $suma;
 
-            if($info = BloquesRecords::orderBy('posicion', 'DESC')->first()){
-                $suma = $info->posicion + 1;
-            }else{
-                $suma = 1;
-            }
-
-            $ca = new BloquesRecords();
-            $ca->fecha = $request->fecha;
-            $ca->nombre = $request->nombre;
-            $ca->cantidad = $request->cantidad;
-            $ca->imagen = $nombreFoto;
-            $ca->descripcion = $request->descripcion;
-            $ca->posicion = $suma;
-
-            if($ca->save()){
-                return ['success' => 1];
+                if($ca->save()){
+                    return ['success' => 1];
+                }else{
+                    return ['success' => 2];
+                }
             }else{
                 return ['success' => 2];
             }
-        }else{
+
+        }else {
             return ['success' => 2];
         }
     }
 
-
-
-    public function ordenarRecords(Request $request){
-
-        $tasks = BloquesRecords::all();
+    public function ordenarSliders(Request $request){
+        $tasks = BloqueSlider::all();
 
         foreach ($tasks as $task) {
             $id = $task->id;
@@ -381,7 +380,7 @@ class EventosController extends Controller
         return ['success' => 1];
     }
 
-    public function borrarRecords(Request $request){
+    public function borrarSliders(Request $request){
         $rules = array(
             'id' => 'required',
         );
@@ -390,13 +389,82 @@ class EventosController extends Controller
 
         if ($validator->fails()){return ['success' => 0]; }
 
-        if($info = BloquesRecords::where('id', $request->id)->first()){
+        if($info = BloqueSlider::where('id', $request->id)->first()){
 
             if(Storage::disk('imagenes')->exists($info->imagen)){
                 Storage::disk('imagenes')->delete($info->imagen);
             }
 
-            BloquesRecords::where('id', $request->id)->delete();
+            BloqueSlider::where('id', $request->id)->delete();
+            return ['success' => 1];
+        }else{
+            return ['success' => 2];
+        }
+    }
+
+    public function informacionSlider(Request $request){
+
+        $regla = array(
+            'id' => 'required',
+        );
+
+        $validar = Validator::make($request->all(), $regla);
+
+        if ($validar->fails()){return ['success' => 0]; }
+
+        if($bloque = BloqueSlider::where('id', $request->id)->first()){
+
+            $producto = Producto::where('activo', 1)->orderBy('nombre')->get();
+
+            return ['success' => 1, 'slider' => $bloque, 'producto' => $producto,
+                'idproducto' => $bloque->id_producto];
+        }else{
+            return ['success' => 2];
+        }
+    }
+
+    public function editarSlider(Request $request){
+
+        if($info = BloqueSlider::where('id', $request->id)->first()){
+
+            if($request->hasFile('imagen')){
+
+                $cadena = Str::random(15);
+                $tiempo = microtime();
+                $union = $cadena.$tiempo;
+                $nombre = str_replace(' ', '_', $union);
+
+                $extension = '.'.$request->imagen->getClientOriginalExtension();
+                $nombreFoto = $nombre.strtolower($extension);
+                $avatar = $request->file('imagen');
+                $upload = Storage::disk('imagenes')->put($nombreFoto, \File::get($avatar));
+
+                if($upload){
+                    $imagenOld = $info->imagen;
+
+                    BloqueSlider::where('id', $request->id)->update([
+                        'descripcion' => $request->nombre,
+                        'imagen' => $nombreFoto,
+                        'id_producto' => $request->producto
+                    ]);
+
+                    if(Storage::disk('imagenes')->exists($imagenOld)){
+                        Storage::disk('imagenes')->delete($imagenOld);
+                    }
+
+                    return ['success' => 1];
+
+                }else{
+                    return ['success' => 2];
+                }
+            }else {
+
+                BloqueSlider::where('id', $request->id)->update([
+                    'descripcion' => $request->nombre,
+                    'id_producto' => $request->producto
+                ]);
+            }
+
             return ['success' => 1];
         }else{
             return ['success' => 2];

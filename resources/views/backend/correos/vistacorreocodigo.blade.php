@@ -69,12 +69,12 @@
     </style>
 </head>
 
-<body style="background-color: #673AB7; margin: 0 !important; padding: 0 !important;">
+<body style="background-color: #f54e00; margin: 0 !important; padding: 0 !important;">
 <!-- FORMATO DE CORREO, PARA RECIBIR CODIGO DE RECUPERACION DE CONTRASEÑA -->
 
 <table border="0" cellpadding="0" cellspacing="0" width="100%">
     <tr>
-        <td bgcolor="#673AB7" align="center">
+        <td bgcolor="#f54e00" align="center">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
                 <tr>
                     <td align="center" valign="top" style="padding: 40px 10px 40px 10px;">
@@ -92,7 +92,7 @@
         </td>
     </tr>
     <tr>
-        <td bgcolor="#673AB7" align="center" style="padding: 0px 10px 0px 10px;">
+        <td bgcolor="#f54e00" align="center" style="padding: 0px 10px 0px 10px;">
             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;" >
                 <tr>
                     <td bgcolor="#ffffff" align="center" style="padding: 20px 30px 40px 30px; color: #0D2C55; font-family: Arial, sans-serif; font-size: 18px;" >

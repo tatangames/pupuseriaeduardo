@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-    <title>Panes el Inge. Metapán</title>
+    <title>Pupuseria Eduardo</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
@@ -86,11 +86,11 @@
         <div class="row" style="margin-top: 60px">
             <div class="col-lg-6 col-12 mx-auto">
                 <div class="text-center image-size-small position-relative">
-                    <img src="{{ asset('images/logo.png') }}" class="rounded-circle p-2 bg-white">
+                    <img src="{{ asset('images/logocircular.png') }}" class="rounded-circle p-2 bg-white">
                 </div>
                 <div class="p-5 bg-white rounded shadow-lg">
                     <h3 class="mb-2 text-center pt-5">PANEL DE CONTROL</h3>
-                    <p class="text-center lead">Panes el Inge. Metapán</p>
+                    <p class="text-center lead">Pupuseria Eduardo</p>
                     <form class=" validate-form">
 
                         <div class="input-group form-group" style="margin-top: 25px">

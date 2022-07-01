@@ -9,7 +9,7 @@
 <style>
 
     #card-header-color {
-        background-color: #673AB7 !important;
+        background-color: #f54e00 !important;
     }
 
 </style>

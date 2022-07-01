@@ -77,9 +77,17 @@ class ApiAfiliadosController extends Controller
 
                 $o->fecha_orden = date("h:i A d-m-Y", strtotime($o->fecha_orden));
                 $o->precio_consumido = number_format((float)$o->precio_consumido, 2, '.', ',');
+
                 $o->cliente = $infoOrdenesDireccion->nombre;
-                $o->direccion = $infoOrdenesDireccion->direccion;
                 $o->telefono = $infoOrdenesDireccion->telefono;
+
+                // verificar metodo entrega.
+                //domicilio
+                if($o->tipoentrega == 1){
+                    $o->direccion = $infoOrdenesDireccion->direccion;
+                }else{
+                    $o->direccion = "";
+                }
 
                 if($o->tipoentrega == 1){
                     $entrega = "A Domicilio";

@@ -15,7 +15,7 @@
     }
 
     #card-header-color {
-        background-color: #673AB7 !important;
+        background-color: #f54e00 !important;
     }
 </style>
 
@@ -317,8 +317,8 @@
                 });
         }
 
-        function verCategorias(id) {
-            window.location.href="{{ url('/admin/categorias/') }}/"+id;
+        function verCategorias() {
+            window.location.href="{{ url('/admin/categorias/') }}";
         }
 
         function verEventos() {

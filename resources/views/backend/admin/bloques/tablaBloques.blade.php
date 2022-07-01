@@ -42,16 +42,11 @@
                                         <button type="button" class="btn btn-warning btn-xs" onclick="verEventos()">
                                             <i class="fas fa-eye" title="Eventos"></i>&nbsp; Eventos
                                         </button>
-                                    @elseif($dato->tiposervicio_id == 2)
-                                        <button type="button" class="btn btn-success btn-xs" onclick="verCategorias({{ $dato->id }})">
+                                    @else
+                                        <button type="button" class="btn btn-success btn-xs" onclick="verCategorias()">
                                             <i class="fas fa-eye" title="Categorías"></i>&nbsp; Categorías
                                         </button>
-                                    @elseif($dato->tiposervicio_id == 3)
-                                        <button type="button" class="btn btn-success btn-xs" onclick="verRecords({{ $dato->id }})">
-                                            <i class="fas fa-eye" title="Records"></i>&nbsp; Records
-                                        </button>
                                     @endif
-
                                 </td>
 
                             </tr>
